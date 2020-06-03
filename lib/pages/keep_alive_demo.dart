@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
@@ -21,6 +20,7 @@ class _MyHomePageState extends State<MyHomePage> with AutomaticKeepAliveClientMi
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Center(
         child: Column(
