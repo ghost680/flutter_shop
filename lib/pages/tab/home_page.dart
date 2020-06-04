@@ -23,9 +23,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
         future: queryHomeSlides(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List swiperData = snapshot.data['data']['slides'];
-            List navigatorData = snapshot.data['data']['category'];
-            print(navigatorData);
+            List<Map> swiperData = (snapshot.data['data']['slides'] as List).cast();
+            List<Map> navigatorData = (snapshot.data['data']['category'] as List).cast();
             return Container(
               child: Column(
                 children: <Widget>[
