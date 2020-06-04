@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../service/service_method.dart';
 import '../components/swiper_component.dart';
+import '../home/topNavigator.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
