@@ -8,7 +8,6 @@ class SwiperComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 750, height: 1334);
     return Container(
       width: 750.w,
       height: 350.h,

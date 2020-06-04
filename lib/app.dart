@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import './pages/tab/home_page.dart';
 import './pages/tab/category_page.dart';
 import './pages/tab/cart_page.dart';
@@ -30,7 +31,7 @@ class _AppPageState extends State<AppPage> {
     ),
   ];
 
-  final List tabBodies = [
+  final List<Widget> tabBodies = [
     HomePage(),
     CategoryPage(),
     CartPage(),
@@ -41,6 +42,7 @@ class _AppPageState extends State<AppPage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, width: 750, height: 1334);
     return Scaffold(
       backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
       bottomNavigationBar: BottomNavigationBar(
@@ -53,7 +55,10 @@ class _AppPageState extends State<AppPage> {
           });
         },
       ),
-      body: tabBodies[currentIndex]
+      body: IndexedStack(
+        index: currentIndex,
+        children: tabBodies,
+      )
     );
   }
 }

@@ -7,7 +7,6 @@ class TopNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 750, height: 1334);
     return Container(
       height: 320.h,
       padding: EdgeInsets.all(3.0),
@@ -21,15 +20,23 @@ class TopNavigator extends StatelessWidget {
     );
   }
 
-  _gridViewItemUI(BuildContext context, item) {
+  Widget _gridViewItemUI(BuildContext context, item) {
     return InkWell(
       onTap: (){
         print('点击导航');
       },
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.network(item['image'], width: 95.w),
-          Text(item['mallCategoryName'])
+          Image.network(item['image'], width: 100.w, height: 100.h),
+          Text(
+            item['title'], 
+            style: TextStyle(
+              fontSize: 28.sp,
+              color: Colors.grey,
+            )
+          )
         ]
       )
     );
