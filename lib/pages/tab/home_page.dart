@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../service/service_method.dart';
 import '../components/swiper_component.dart';
 import '../home/topNavigator.dart';
+import '../home/recommend.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -25,12 +26,17 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
           if (snapshot.hasData) {
             List<Map> swiperData = (snapshot.data['data']['slides'] as List).cast();
             List<Map> navigatorData = (snapshot.data['data']['category'] as List).cast();
+            List<Map> recommendList = (snapshot.data['data']['recommend'] as List).cast();
+
             return Container(
-              child: Column(
-                children: <Widget>[
-                  SwiperComponent(swiperDataList: swiperData),
-                  TopNavigator(navigatorList: navigatorData)
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    SwiperComponent(swiperDataList: swiperData),
+                    TopNavigator(navigatorList: navigatorData),
+                    RecommendWidget(recommendList: recommendList,),
+                  ]
+                )
               )
             );
           } else {
