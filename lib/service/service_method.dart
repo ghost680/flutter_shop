@@ -5,3 +5,9 @@ import '../conf/service_url.dart';
 Future queryHomeSlides() async {
   return await request(ServicePath.queryHome);
 }
+
+// 查询火爆专区数据
+Future queryHotList(formData) async {
+  print(formData);
+  return await request(ServicePath.queryHotList, formData: formData);
+}
