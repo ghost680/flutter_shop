@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HotWidget extends StatelessWidget {
-  final Map hotList;
+  final List hotList;
   const HotWidget({Key key, this.hotList}) : super(key: key);
 
   @override
@@ -10,15 +10,15 @@ class HotWidget extends StatelessWidget {
     return Container(
       child: Column(
         children: <Widget>[
-          _hotTitleWidget(hotList['title']),
-          _hotListWidget(hotList['hotData'])
+          _hotTitleWidget(),
+          _hotListWidget(hotList)
         ]
       ),
     );
   }
 
   // 标题组件
-  Widget _hotTitleWidget(String title) {
+  Widget _hotTitleWidget() {
     return Container(
       margin: EdgeInsets.only(top: 20.h),
       color: Colors.white,
@@ -26,7 +26,7 @@ class HotWidget extends StatelessWidget {
       width: double.infinity,
       height: 80.h,
       child: Text(
-        "$title",
+        "火爆专区",
         style: TextStyle(
           fontSize: 32.sp,
           color: Colors.grey
@@ -38,6 +38,9 @@ class HotWidget extends StatelessWidget {
   // 列表widget
   Widget _hotListWidget(data) {
     if(data.length != 0) {
+      print('############################');
+      print(data.length);
+      print('############################');
       return Container(
         width: double.infinity,
         child: Wrap(
@@ -62,7 +65,7 @@ class HotWidget extends StatelessWidget {
           children: <Widget>[
             Image.network(item['image'], width: 350.w, height: 300.h, fit: BoxFit.fill),
             Text(
-              "${item['name']}",
+              "${item['title']}",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

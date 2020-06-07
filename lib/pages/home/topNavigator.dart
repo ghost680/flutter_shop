@@ -26,19 +26,22 @@ class TopNavigator extends StatelessWidget {
       onTap: (){
         print('点击导航');
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.network(item['image'], width: 100.w, height: 100.h),
-          Text(
-            item['title'], 
-            style: TextStyle(
-              fontSize: 28.sp,
-              color: Colors.grey,
+      child: Container(
+        height: 200.h,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.network(item['image'], width: 100.w, height: 100.h),
+            Text(
+              item['title'], 
+              style: TextStyle(
+                fontSize: 28.sp,
+                color: Colors.grey,
+              )
             )
-          )
-        ]
+          ]
+        ),
       )
     );
   }

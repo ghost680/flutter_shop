@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:flutter_easyrefresh/material_footer.dart';
 import '../../service/service_method.dart';
 import '../components/swiper_component.dart';
 import '../home/topNavigator.dart';
@@ -15,21 +18,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   int page = 1;
-  Map hotList = {};
+  List<Map> hotList = [];
+  
+  GlobalKey<RefreshHeaderState> _headerKey = new GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey = new GlobalKey<RefreshFooterState>();
+
   @override
   void initState() {
     super.initState();
-    _getHotData(this.page);
-  }
-
-  void _getHotData(page) {
-    queryHotList({"page": page}).then((value) {
-      setState(() {
-        hotList = value['list'];
-        print(hotList);
-        page++;
-      });
-    });
+    print('*****************');
   }
 
   @override
@@ -48,9 +45,10 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
             List<Map> navigatorData = (snapshot.data['data']['category'] as List).cast();
             List<Map> recommendList = (snapshot.data['data']['recommend'] as List).cast();
             List<Map> floorList = (snapshot.data['data']['floors'] as List).cast();
+
             return Container(
-              child: SingleChildScrollView(
-                child: Column(
+              child: EasyRefresh(
+                child: ListView(
                   children: <Widget>[
                     SwiperComponent(swiperDataList: swiperData),
                     TopNavigator(navigatorList: navigatorData),
@@ -59,9 +57,27 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                     FloorWidget(floorData: floorList[1]),
                     FloorWidget(floorData: floorList[2]),
                     HotWidget(hotList: hotList),
-                  ]
-                )
-              )
+                  ],
+                ),
+                onRefresh: () async {
+
+                },
+                loadMore: () async {
+                  // 加载更多
+                  if(page <= 4){
+                    queryHotList({"page": page}).then((json) {             
+                      List<Map> newGoodsList = (json['list'] as List ).cast();
+                      print(newGoodsList);
+                      setState(() {
+                        hotList.addAll(newGoodsList);
+                        page++;
+                      });
+                    });
+                  }
+                },
+                refreshHeader: MaterialHeader(key: _headerKey),
+                refreshFooter: MaterialFooter(key: _footerKey),
+              ),
             );
           } else {
             return Center(

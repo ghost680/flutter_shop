@@ -7,14 +7,13 @@ Future request(url, {formData, type: 'POST'}) async{
     Response response;
     Dio dio = Dio();
     dio.options.contentType = Headers.formUrlEncodedContentType;
-
+    print(url);
+    print(formData);
     // 根据用户配置发起对应请求，传入url及表单参数
     if(type == 'POST'){
       response = await dio.post(url, data: formData);
     } if(type == 'GET') {
       response = await dio.get(url, queryParameters: formData);
-      print(url);
-      print(formData);
     }
 
     // 处理返回结果
